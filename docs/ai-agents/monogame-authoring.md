@@ -24,7 +24,7 @@ Rules: no rendering in `Update`, no logic in `Draw`, no ECS world use before `Be
 
 ## Input
 
-The sample reads `Keyboard.GetState()`/`GamePad.GetState()` directly in `Game.Update` and forwards the state via `EventBus.Send` (currently broken — see `codebase-truth.md`). The docs' planned design is a custom action-mapping `InputManager` (`docs/index.md`, G7) that doesn't exist yet. Until it does: keep raw input polling in `Game.Update` (or a dedicated input system), never scattered inside gameplay systems.
+The sample reads `Keyboard.GetState()`/`GamePad.GetState()` directly in `Game.Update` and forwards the state via the Arch `EventBus` (source-generated; works since the generators were wired as analyzers — see `codebase-truth.md`). The docs' planned design is a custom action-mapping `InputManager` (`docs/index.md`, G7) that doesn't exist yet. Until it does: keep raw input polling in `Game.Update` (or a dedicated input system), never scattered inside gameplay systems.
 
 ## Rendering
 

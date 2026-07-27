@@ -7,7 +7,7 @@ description: Work on MonoGame game-loop, content, rendering, windowing, or host-
 
 Load first:
 
-1. `docs/ai-agents/codebase-truth.md` — platform is **WindowsDX12** (not DesktopGL/DX11); build currently broken (5 pre-existing errors).
+1. `docs/ai-agents/codebase-truth.md` — platform is **WindowsDX12** (not DesktopGL/DX11); build is green with the Arch source generators wired as analyzers.
 2. `docs/ai-agents/monogame-authoring.md` — lifecycle order, content rules, rendering rules.
 
 ## Hard rules (summary)
@@ -22,5 +22,5 @@ Load first:
 
 ## Before finishing
 
-- `dotnet build bonoboengine-dx12.slnx` — only the 5 known pre-existing errors may remain.
+- `dotnet build bonoboengine-dx12.slnx` — must stay at 0 errors.
 - If you changed content: confirm the `.mgcb` entry, not just the file on disk.

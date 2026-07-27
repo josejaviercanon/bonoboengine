@@ -5,13 +5,13 @@ description: Scope-check feature requests, new subsystems, or new library depend
 
 # Game Scope Guardian
 
-This repo's rules treat uncontrolled scope as the #1 project killer (`CLAUDE.md`, `docs/game-development/ai-workflow/gamedev-rules.md`, `P8_pitfalls.md`). Enforce politely but firmly.
+This repo's rules treat uncontrolled scope as the #1 project killer (`AGENTS.md` § Game Development Rules, `docs/game-development/ai-workflow/gamedev-rules.md`, `P8_pitfalls.md`). Enforce politely but firmly.
 
 ## Checks (in order)
 
 1. **Was it asked for?** If the user didn't request it, don't build it. Acknowledge the idea, offer to park it (FUTURE_IDEAS pattern — the file doesn't exist yet; propose creating it).
 2. **Does the dependency exist?** Compare against `docs/ai-agents/codebase-truth.md` § Stack reality. Planned-but-uninstalled libraries (Gum, MonoGame.Extended, Apos.Input, FontStashSharp, Aether.Physics2D, BrainAI) require an explicit user decision before any code is written against them.
-3. **Is it game-feel code?** Jump arcs, attack timing, camera behavior, screen shake, easing: never auto-generate — flag for hand-writing (CLAUDE.md rule).
+3. **Is it game-feel code?** Jump arcs, attack timing, camera behavior, screen shake, easing: never auto-generate — flag for hand-writing (AGENTS.md rule).
 4. **Size it.** Implementation + testing + integration ≈ 3× the naive estimate. If it's bigger than a single session, propose the openspec workflow (`.opencode/commands/opsx-new.md`) instead of ad-hoc implementation.
 5. **Is it growing mid-task?** If a request expands while you work, stop and name the expansion explicitly; let the user decide to absorb or defer.
 

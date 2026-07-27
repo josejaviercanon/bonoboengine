@@ -10,6 +10,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Arch\Arch.csproj" />
+    <!-- The Arch source generators ([Query], [Event]) run via the lean Arch.Generators
+         analyzer assembly; it is not a runtime reference. -->
+    <ProjectReference Include="..\Arch.Generators\Arch.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\BonoboGame.PipelineExtensions.Dx12\BonoboGame.PipelineExtensions.Dx12.csproj" />
   </ItemGroup>
 </Project>

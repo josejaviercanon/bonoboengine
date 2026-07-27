@@ -6,7 +6,7 @@
 
 | Path | Contents | Duplication note |
 |---|---|---|
-| `docs/index.md` | "The Stack" template: aspirational library stack + setup for a new game | Stack ≠ installed (see truth file) |
+| `docs/index.md` | **Source of truth** for the stack, architecture & project structure (target stack table + current install reality + repo layout) | Planned rows ≠ installed (see truth file § Stack reality) |
 | `docs/monogame-arch/` | MonoGame+Arch rules, architecture essays, reference tables, guides G1–G70 | `guides/` also mirrored under `docs/2d-games/G/` |
 | `docs/game-development/` | Engine-agnostic: AI workflow, sessions, programming, concepts, game design, project management | `2d-games/Playbook` mirrors `project-management/P0–P15` |
 | `docs/2d-games/` | Mirrored guides + `Playbook/` + **`examples/` (25 compilable-style C# snippets)** | Prefer the `monogame-arch`/`game-development` copies for prose; `examples/` is unique |
@@ -73,7 +73,7 @@
 
 ### Already agent-oriented (written for AI, usable as-is)
 
-- `CLAUDE.md` (root) — generation do/don't lists.
+- `AGENTS.md` (root) — build state, layout, and generation do/don't lists (absorbed `CLAUDE.md` on 2026-07-26).
 - `docs/monogame-arch/monogame-arch-rules.md` — MonoGame+Arch rules; **caveat:** assumes NuGet Arch + generic folder layout, so defer to `ecs-authoring.md` on API details.
 - `docs/game-development/ai-workflow/gamedev-rules.md` — engine-agnostic generation rules (basis of `agentic-workflow.md`).
 - `docs/game-development/session/session-prompt.md` + `formatting.md` — session co-pilot protocol (briefing dashboard, Plan/Decide/Feature/Debug/Scope paths, ADR + session-state formats).

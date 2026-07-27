@@ -36,7 +36,7 @@ namespace BonoboGame.Core.Dx12
         private JobScheduler _jobScheduler = null!;
 
         // Our systems processing entities
-        private Systems.Group<GameTime> _systems = null!;
+        private Arch.Systems.Group<GameTime> _systems = null!;
         private DrawSystem _drawSystem = null!;
 
         // Monogame stuff
@@ -104,7 +104,7 @@ namespace BonoboGame.Core.Dx12
             _world = archSerializer.Deserialize(worldJson);
 
             // Create systems, running in order
-            _systems = new Systems.Group<GameTime>(
+            _systems = new Arch.Systems.Group<GameTime>(
                 "Systems",
                 new MovementSystem(_world, GraphicsDevice.Viewport.Bounds),
                 new ColorSystem(_world),

@@ -1,11 +1,11 @@
 # Agentic Workflow Rules
 
-Distilled from `docs/game-development/ai-workflow/gamedev-rules.md`, `CLAUDE.md`, and `docs/game-development/session/session-prompt.md`, adapted to this repo. These govern **how** agents work here, not what the code does.
+Distilled from `docs/game-development/ai-workflow/gamedev-rules.md`, `AGENTS.md` (§ Game Development Rules, formerly `CLAUDE.md`), and `docs/game-development/session/session-prompt.md`, adapted to this repo. These govern **how** agents work here, not what the code does.
 
 ## Generation rules
 
 1. **Small units, always.** One concern per generation, ~100 lines max per piece. Movement first, build, then collision — never both at once.
-2. **Build after every change:** `dotnet build bonoboengine-dx12.slnx`. Remember the 5 pre-existing errors (AGENTS.md § Build status) — your change must not add new ones.
+2. **Build after every change:** `dotnet build bonoboengine-dx12.slnx`. The build is green (AGENTS.md § Build status) — keep it at 0 errors.
 3. **Interfaces/contracts first** when adding a new subsystem; get the shape reviewed before filling in implementation.
 4. **Explicit over clever.** Verbose readable code; game code is read more than written.
 5. **Match existing style:** 4-space indent, XML doc comments on public members, `_camelCase` private fields, PascalCase constants, one concern per file.

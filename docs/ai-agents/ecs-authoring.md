@@ -10,9 +10,9 @@ Rules for writing components and systems **in this repo**. Signatures below come
 4. Frame-rate independence: multiply by `(float)gameTime.ElapsedGameTime.TotalSeconds` (sample uses `Milliseconds` — match whatever the neighboring system uses, but prefer seconds).
 5. No LINQ / per-frame string allocation in hot paths.
 
-## Authoring systems WITHOUT the source generators (current repo state)
+## Authoring systems: manual queries and source generators
 
-The `[Query]` source generator does not run (see `codebase-truth.md` § Build state). Write manual queries:
+The Arch source generators run (wired via the `Arch.Generators` analyzer — see `codebase-truth.md` § Build state), so `[Query]` methods, generated `*Query`/`Update` overrides, and `[Event]` all work. Manual `QueryDescription` loops are equally valid and preferred when you need full control:
 
 ```csharp
 using Arch.Core;
@@ -39,7 +39,7 @@ public class MovementSystem : BaseSystem<World, GameTime>
 - `ref` on every lambda component parameter — Arch passes components by reference; missing `ref` silently copies.
 - Lambda parameter list must match `WithAll<...>` arity exactly.
 - Query filters: `WithAll`, `WithAny`, `WithNone`, `WithExclusive` (generated overloads up to ~25 type args).
-- Register systems in `Arch.Systems.Group<GameTime>` (`Group<T>` runs them in order) — **not** `Systems.Group`; that namespace collision is one of the current build errors.
+- Register systems in `Arch.Systems.Group<GameTime>` (`Group<T>` runs them in order) — **not** `Systems.Group`; that resolves to the game's `Systems` namespace and fails to compile.
 - Draw systems stay separate from update systems (MonoGame splits `Update`/`Draw`); override `BeforeUpdate`/`AfterUpdate` for `SpriteBatch.Begin/End` (see `DrawSystem`).
 
 ## API shape gotchas
@@ -56,9 +56,9 @@ public class MovementSystem : BaseSystem<World, GameTime>
 
 Under `PURE_ECS` configurations the entity extension methods don't exist — use `_world.Get/Set/Has/Add/Remove(entity, …)`. Don't add new `#if` branches; target the default configuration.
 
-## EventBus: unavailable right now
+## EventBus
 
-`EventBus.Send` compiles (static API in `Arch.Bus`), but `[Event]` receiver attributes are generator-only and broken. Until fixed, wire cross-system communication explicitly (direct calls, shared state, or plain C# events) — do not add new `[Event]` usage.
+`EventBus.Send(ref evt)` and `[Event]`-attributed receivers work via the `Arch.Generators` analyzer (generated dispatcher plus `Hook()`/`Unhook()` per receiving class). Instance receivers must call `Hook()` to subscribe — see `DebugSystem`. The generated `Arch.Bus.EventBus` class shadows the compiled generator-model struct in Arch.dll (CS0436 warning — intended, source wins).
 
 ## Serialization
 
@@ -66,13 +66,13 @@ Pattern in use: `ArchBinarySerializer` from `Arch.Persistence` + a custom `ISeri
 
 ## Multithreading
 
-`World.SharedJobScheduler` is set to a `ZeroAllocJobScheduler` instance in `Game.BeginRun` and disposed in `EndRun`. `[Query(Parallel = true)]` relies on the source generator; until generators work, prefer `World.ParallelQuery`-family templates in `Arch/Templates/` only after checking the generated signature.
+`World.SharedJobScheduler` is set to a `ZeroAllocJobScheduler` instance in `Game.BeginRun` and disposed in `EndRun`. `[Query(Parallel = true)]` works (source generator wired); alternatively use the `World.ParallelQuery`-family templates in `Arch/Templates/` after checking the generated signature.
 
 ## Review checklist for ECS changes
 
-- [ ] Builds (`dotnet build bonoboengine-dx12.slnx`) — remember the 5 pre-existing errors; don't add new ones.
+- [ ] Builds (`dotnet build bonoboengine-dx12.slnx`) — must stay at 0 errors.
 - [ ] Components still logic-free structs.
 - [ ] No structural changes inside any query loop.
-- [ ] No dependency on `[Query]`/`*Query`/`[Event]` generated members.
+- [ ] `[Query]`/`[Event]` usage binds to generator output (`*Query`/`Update`/`Send` resolve; build stays green).
 - [ ] No LINQ, no string interpolation in per-frame code paths.
 - [ ] System registered in the right group; draw logic only in draw systems.
