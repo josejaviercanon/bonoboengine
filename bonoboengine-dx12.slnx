@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Games/">
+    <Project Path="BonoboGame.Dx12/BonoboGame.Dx12.csproj" />
+  </Folder>
+  <Folder Name="/Libraries/">
+    <Project Path="Arch/Arch.csproj" />
+    <Project Path="BonoboGame.Core.Dx12/BonoboGame.Core.Dx12.csproj" />
+    <Project Path="BonoboGame.PipelineExtensions.Dx12/BonoboGame.PipelineExtensions.Dx12.csproj" />
+  </Folder>
+  <Folder Name="/Tests/" />
+</Solution>
